@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  ronfire:
+    build: .
+    container_name: ronfire
+    volumes:
+      - socket_data:/app/socket
+    networks:
+      - webnet
+
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    ports:
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - socket_data:/app/socket
+    depends_on:
+      - ronfire
+    networks:
+      - webnet
+
+volumes:
+  socket_data:
+
+networks:
+  webnet:

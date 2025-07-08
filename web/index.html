@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Home | Ronak Jain</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            @font-face {
+                font-family: "Hack";
+                src: url("/static/fonts/Hack-Regular.woff2")
+                    format("woff2");
+                font-weight: 400;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Hack Bold";
+                src: url("/static/fonts/Hack-Bold.woff2")
+                    format("woff2");
+                font-weight: 700;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Hack Italic";
+                src: url("/static/fonts/Hack-Italic.woff2")
+                    format("woff2");
+                font-weight: 400;
+                font-style: italic;
+                font-display: swap;
+            }
+        </style>
+        <link
+            rel="stylesheet"
+            href="/static/styles/index.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/static/fontawesome/css/all.min.css"
+        />
+    </head>
+    <body>
+        <div class="title">Ronak Jain</div>
+        <div class="nav-bar">
+            <div class="nav nav-left">
+                <a href="/terminal/" class="desktop-only"
+                    >Terminal</a
+                >
+                <a href="/projects/">Projects</a>
+            </div>
+            <div class="nav nav-right">
+                <a href="/blog/">Blog</a>
+                <a
+                    href="https://github.com/ironic1234/Resume/releases/latest/download/Ronak_Jain_Resume.pdf"
+                    >Resume</a
+                >
+            </div>
+        </div>
+
+        <div class="content">
+<script>
+    const redirected = sessionStorage.getItem("redirectedToTerminal");
+
+    if (window.innerWidth >= 600 && !redirected) {
+        sessionStorage.setItem("redirectedToTerminal", "true");
+        window.location.href = "/terminal/";
+    }
+</script>
+<div class="home-container">
+    <div class="profile-pic">
+        <img
+            src="/static/images/me.webp"
+            alt="Profile Picture"
+        />
+    </div>
+    <p class="home-subtitle">EE @ Purdue</p>
+    <div class="social-icons">
+        <a
+            href="https://github.com/ironic1234"
+            target="_blank"
+            aria-label="GitHub"
+        >
+            <i class="fa-brands fa-github"></i>
+        </a>
+        <a
+            href="https://instagram.com/ronakjain628"
+            target="_blank"
+            aria-label="Instagram"
+        >
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a
+            href="https://linkedin.com/in/ronakpjain"
+            target="_blank"
+            aria-label="LinkedIn"
+        >
+            <i class="fa-brands fa-linkedin"></i>
+        </a>
+    </div>
+</div>
+</div>
+
+        <footer class="site-footer">
+            Ronak Jain 2025 &mdash; Built on
+            <a href="https://github.com/ironic1234/ronfire" target="_blank"
+                >ronfire</a
+            >
+            &mdash; Terminal with
+            <a href="https://xtermjs.org/">xterm.js</a> &mdash; Social Icons
+            from <a href="https://fontawesome.com">Font Awesome</a>
+        </footer>
+    </body>
+</html>

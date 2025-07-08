@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Terminal | Ronak Jain</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            @font-face {
+                font-family: "Hack";
+                src: url("/static/fonts/Hack-Regular.woff2")
+                    format("woff2");
+                font-weight: 400;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Hack Bold";
+                src: url("/static/fonts/Hack-Bold.woff2")
+                    format("woff2");
+                font-weight: 700;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Hack Italic";
+                src: url("/static/fonts/Hack-Italic.woff2")
+                    format("woff2");
+                font-weight: 400;
+                font-style: italic;
+                font-display: swap;
+            }
+        </style>
+        <link
+            rel="stylesheet"
+            href="/static/styles/index.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/static/fontawesome/css/all.min.css"
+        />
+    </head>
+    <body>
+        <div class="title">Ronak Jain</div>
+        <div class="nav-bar">
+            <div class="nav nav-left">
+                <a href="/" class="desktop-only"
+                    >Home</a
+                >
+                <a href="/projects/">Projects</a>
+            </div>
+            <div class="nav nav-right">
+                <a href="/blog/">Blog</a>
+                <a
+                    href="https://github.com/ironic1234/Resume/releases/latest/download/Ronak_Jain_Resume.pdf"
+                    >Resume</a
+                >
+            </div>
+        </div>
+
+        <div class="content">
+<script>
+    if (window.innerWidth < 600) {
+        window.location.href = "/";
+    }
+</script>
+<link
+    rel="stylesheet"
+    href="/static/styles/xterm.css"
+/>
+<div id="terminal-container"></div>
+<script src="/static/js/xterm.js"></script>
+<script>
+    const term = new Terminal({
+        fontFamily: "Hack, monospace",
+        fontSize: 12,
+        cursorBlink: true,
+        theme: {
+            background: "#1e1e2e",
+            foreground: "#cdd6f4", // bluish white
+        },
+        lineWrap: true,
+    });
+
+    term.open(document.getElementById("terminal-container"));
+    term.resize(66, 24);
+    term.focus();
+
+    const now = new Date();
+    const timeString = now.toString().split(" ").slice(0, 5).join(" ");
+    term.writeln("Last login: " + timeString + " on ttys001");
+    term.writeln("\nType help for help\n");
+
+    let input = "";
+    let cwd = "~";
+    let name = "you";
+
+    const fileSystem = {
+        "~": {
+            "about.txt":
+                "\nHello! I am Ronak and I spend too much time configuring my MacOS.\r\n\n" +
+                "I love the terminal so much that I made an exact replica of my\r\nsetup on my website.\r\n\n" +
+                "Please enjoy it. I had to do some font shenanigans, a bunch of \r\nansi escape codes, and massive if else blocks.\r\n",
+            projects: {
+                "robomasters.txt":
+                    "\x1b[1;38;2;203;166;247mPurdue Robomasters\x1b[0m\r\n" +
+                    "\x1b[38;2;203;166;247m------------------\x1b[0m\r\n" +
+                    "- Embedded C for robot controls with STM32 microcontrollers\r\n" +
+                    "- Working on complete rewrite of codebase with support for new \r\nmainboard\r\n" +
+                    "- Hopefully work on some CV stuff next year for autoaim\r\n" +
+                    "\x1b[2mGitHub: https://github.com/PurdueRM/Embedded-Control\x1b[0m",
+
+                "per.txt":
+                    "\x1b[1;38;2;156;220;254mPurdue Electric Racing\x1b[0m\r\n" +
+                    "\x1b[38;2;156;220;254m----------------------\x1b[0m\r\n" +
+                    "- Designing PCBs for testing with some power stuff\r\n" +
+                    "- Porting scheduler to FreeRTOS (mostly figuring out headers and \r\ncmake)\r\n" +
+                    "- Writing HAL for high speed external oscillator\r\n" +
+                    "\x1b[2mGitHub: https://github.com/PurdueElectricRacing/firmware\x1b[0m",
+
+                "ronfire.txt":
+                    "\x1b[1;38;2;255;184;108mRonfire\x1b[0m\r\n" +
+                    "\x1b[38;2;255;184;108m-------\x1b[0m\r\n" +
+                    "- Custom HTTP webserver in Rust with Tokio for async\r\n" +
+                    "- Serves responses on a Unix socket (caddy reverse proxy for now)\r\n" +
+                    "- Working on features for actual usage including config file for \r\ndynamic routing and serving\r\n" +
+                    "- Maybe write my own reverse proxy with (custom?) HTTP2 support\r\n" +
+                    "\x1b[2mGitHub: https://github.com/ironic1234/ronfire\x1b[0m",
+
+                "ronq.txt":
+                    "\x1b[1;38;2;255;121;198mRonq\x1b[0m\r\n" +
+                    "\x1b[38;2;255;121;198m----\x1b[0m\r\n" +
+                    "- Concurrent task runner with C++, fork(), and exec()\r\n" +
+                    "- Docker compose without the containers\r\n" +
+                    "- Made for testing stuff (ronfire + caddy)\r\n" +
+                    "- Need to add configuration support for different types of tasks \r\nlike hidden and in front (openocd + gdb)\r\n" +
+                    "\x1b[2mGitHub: https://github.com/ironic1234/ronq\x1b[0m",
+
+                "mofi.txt":
+                    "\x1b[1;38;2;150;200;250mMofi\x1b[0m\r\n" +
+                    "\x1b[38;2;150;200;250m----\x1b[0m\r\n" +
+                    "- Spotlight replacement because spotlight has 🤢 colors\r\n" +
+                    "- Tauri with Rust backend (finding and opening apps) and Svelte \r\nfrontend\r\n" +
+                    "- Probably do a swift rewrite and implement more features \r\n(especially because tahoe's spotlight looks actually good)\r\n" +
+                    "\x1b[2mGitHub: https://github.com/ironic1234/mofi\x1b[0m",
+            },
+        },
+    };
+
+    function getCurrentDir() {
+        const parts = cwd.split("/").filter((p) => p);
+        let node = fileSystem["~"];
+        for (let i = 1; i < parts.length; i++) {
+            node = node[parts[i]];
+        }
+
+        return node;
+    }
+
+    function getPrompt() {
+        const cwdName = cwd;
+        return (
+            "\x1b[38;2;238;188;224m" +
+            name +
+            "@Olympus \x1b[38;2;136;179;249m" +
+            cwdName +
+            "\x1b[38;2;172;179;205m$ \x1b[0m"
+        );
+    }
+
+    term.write(getPrompt());
+
+    term.onData((data) => {
+        console.log(data);
+        if (data === "\x0c") {
+            term.write("\x1b[2J\x1b[H");
+            term.write(getPrompt());
+            input = "";
+            return;
+        } else if (data === "\r") {
+            term.write("\r\n");
+            const args = input.trim().split(" ");
+            const cmd = args[0].toLowerCase();
+            const arg = args[1];
+
+            const dir = getCurrentDir();
+
+            if (input.trim() === "clear") {
+                term.write("\x1b[2J\x1b[H");
+                term.write(getPrompt());
+                input = "";
+                return;
+            } else if (input.trim() === "exit") {
+                window.location.href = "/";
+            } else if (cmd === "ls") {
+                const items = Object.entries(getCurrentDir());
+
+                if (items.length === 0) {
+                    term.writeln(
+                        "\x1b[38;2;255;121;198mNo files or directories found\x1b[0m",
+                    );
+                } else {
+                    const fancy = items.map(([name, value]) => {
+                        if (typeof value === "object") {
+                            // Directory: blue-ish with trailing slash
+                            return (
+                                "\x1b[38;2;137;180;250m " + name + "/\x1b[0m"
+                            );
+                        } else {
+                            // File: light gray
+                            return (
+                                "\x1b[38;2;217;197;154m " + name + "\x1b[0m"
+                            );
+                        }
+                    });
+                    if (items.length > 4) {
+                        term.writeln(fancy.join("\r\n"));
+                    } else {
+                        term.writeln(fancy.join("  "));
+                    }
+                }
+            } else if (cmd === "cd") {
+                if (!arg) {
+                    term.writeln(
+                        "\x1b[38;2;255;121;198mUsage: cd <directory>\x1b[0m",
+                    );
+                } else if (arg === "..") {
+                    const parts = cwd.split("/").filter((p) => p);
+                    if (parts.length > 1) {
+                        cwd = parts.slice(0, -1).join("/");
+                    } else {
+                        cwd = "/";
+                    }
+                } else if (dir[arg]) {
+                    cwd = (cwd + "/" + arg).replace(/\/+/g, "/");
+                } else {
+                    term.writeln(
+                        "\x1b[38;2;255;121;198mNo such directory: " +
+                            arg +
+                            "\x1b[0m",
+                    );
+                }
+            } else if (cmd === "cat") {
+                if (!arg) {
+                    term.writeln(
+                        "\x1b[38;2;255;121;198mUsage: cat <file>\x1b[0m",
+                    );
+                } else if (dir[arg]) {
+                    if (typeof dir[arg] === "string") {
+                        term.writeln(dir[arg]);
+                    } else {
+                        term.writeln(
+                            "\x1b[38;2;255;121;198m" +
+                                arg +
+                                " is a directory\x1b[0m",
+                        );
+                    }
+                } else {
+                    term.writeln(
+                        "\x1b[38;2;255;121;198mNo such file:" + arg + "\x1b[0m",
+                    );
+                }
+            } else if (cmd === "name") {
+                if (!arg) {
+                    term.writeln(
+                        "\x1b[38;2;255;121;198mUsage: name <new_name>\x1b[0m",
+                    );
+                } else {
+                    name = arg;
+                    term.writeln("Name changed to " + name);
+                }
+            } else if (cmd === "pwd") {
+                term.writeln(cwd);
+            } else if (cmd === "help") {
+                term.writeln(
+                    "\x1b[38;2;136;179;249mAvailable commands:\x1b[0m",
+                );
+                term.writeln("");
+                term.writeln(
+                    "  \x1b[38;2;136;179;249mls\x1b[0m                - List files and directories",
+                );
+                term.writeln(
+                    "  \x1b[38;2;136;179;249mcd <directory>\x1b[0m    - Change directory",
+                );
+                term.writeln(
+                    "  \x1b[38;2;136;179;249mcat <file>\x1b[0m        - Display file contents",
+                );
+                term.writeln(
+                    "  \x1b[38;2;136;179;249mpwd\x1b[0m               - Print working directory",
+                );
+                term.writeln(
+                    "  \x1b[38;2;136;179;249mname <new_name>\x1b[0m   - Change your name",
+                );
+                term.writeln(
+                    "  \x1b[38;2;136;179;249mclear\x1b[0m             - Clear the terminal",
+                );
+                term.writeln(
+                    "  \x1b[38;2;136;179;249mexit\x1b[0m              - Exit the terminal\n",
+                );
+            } else {
+                term.writeln(
+                    "\x1b[38;2;255;121;198mCommand not found:" +
+                        input +
+                        "\x1b[0m",
+                );
+            }
+            term.write(getPrompt());
+            input = "";
+        } else if (data === "\x7f") {
+            // Handle backspace
+            if (input.length > 0) {
+                input = input.slice(0, -1);
+                term.write("\b \b");
+            }
+        } else {
+            input += data;
+            term.write(data);
+        }
+    });
+</script>
+</div>
+
+        <footer class="site-footer">
+            Ronak Jain 2025 &mdash; Built on
+            <a href="https://github.com/ironic1234/ronfire" target="_blank"
+                >ronfire</a
+            >
+            &mdash; Terminal with
+            <a href="https://xtermjs.org/">xterm.js</a> &mdash; Social Icons
+            from <a href="https://fontawesome.com">Font Awesome</a>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Projects | Ronak Jain</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            @font-face {
+                font-family: "Hack";
+                src: url("/static/fonts/Hack-Regular.woff2")
+                    format("woff2");
+                font-weight: 400;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Hack Bold";
+                src: url("/static/fonts/Hack-Bold.woff2")
+                    format("woff2");
+                font-weight: 700;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Hack Italic";
+                src: url("/static/fonts/Hack-Italic.woff2")
+                    format("woff2");
+                font-weight: 400;
+                font-style: italic;
+                font-display: swap;
+            }
+        </style>
+        <link
+            rel="stylesheet"
+            href="/static/styles/index.css"
+        />
+    </head>
+    <body>
+        <div class="title">Ronak Jain</div>
+        <div class="nav-bar">
+            <div class="nav nav-left">
+                <a href="/" class="desktop-only"
+                    >Home</a
+                >
+                <a href="/projects/">Projects</a>
+            </div>
+            <div class="nav nav-right">
+                <a href="/blog/">Blog</a>
+                <a
+                    href="https://github.com/ironic1234/Resume/releases/latest/download/Ronak_Jain_Resume.pdf"
+                    >Resume</a
+                >
+            </div>
+        </div>
+
+        <div class="content blog">
+<div id="robomasters" style="font-size: 10px; width: 80%">
+    <h1>
+        <a href="https://github.com/PurdueRM/Embedded-Control" target="_blank"
+            >Purdue Robomasters</a
+        >
+    </h1>
+    <ul>
+        <li>Embedded C for robot controls with STM32 microcontrollers</li>
+        <li>
+            Working on complete rewrite of codebase with support for new
+            mainboard
+        </li>
+        <li>Hopefully work on some CV stuff next year for autoaim</li>
+    </ul>
+</div>
+<div id="per" style="font-size: 10px; width: 80%">
+    <h1>
+        <a
+            href="https://github.com/PurdueElectricRacing/firmware"
+            target="_blank"
+            >Purdue Electric Racing</a
+        >
+    </h1>
+    <ul>
+        <li>Designing PCBs for testing with some power stuff</li>
+        <li>
+            Porting scheduler to FreeRTOS (mostly figuring out headers and
+            cmake)
+        </li>
+        <li>Writing HAL for high speed external oscillator</li>
+    </ul>
+</div>
+<div id="ronfire" style="font-size: 10px; width: 80%">
+    <h1>
+        <a href="https://github.com/ironic1234/ronfire" target="_blank"
+            >Ronfire</a
+        >
+    </h1>
+    <ul>
+        <li>Custom HTTP webserver in Rust with Tokio for async</li>
+        <li>Serves responses on a Unix socket (caddy reverse proxy for now)</li>
+        <li>
+            Working on features for actual usage including config file for
+            dynamic routing and serving
+        </li>
+        <li>Maybe write my own reverse proxy with (custom?) HTTP2 support</li>
+    </ul>
+</div>
+<div id="ronq" style="font-size: 10px; width: 80%">
+    <h1>
+        <a href="https://github.com/ironic1234/ronq" target="_blank">Ronq</a>
+    </h1>
+    <ul>
+        <li>Concurrent task runner with C++, fork(), and exec()</li>
+        <li>Docker compose without the containers</li>
+        <li>Made for testing stuff (ronfire + caddy)</li>
+        <li>
+            Need to add configuration support for different types of tasks like
+            hidden and in front (openocd + gdb)
+        </li>
+    </ul>
+</div>
+<div id="mofi" style="font-size: 10px; width: 80%">
+    <h1>
+        <a href="https://github.com/ironic1234/mofi" target="_blank">Mofi</a>
+    </h1>
+    <ul>
+        <li>Spotlight replacement because spotlight has 🤢 colors</li>
+        <li>
+            Tauri with Rust backend (finding and opening apps) and Svelte
+            frontend
+        </li>
+        <li>
+            Probably do a swift rewrite and implement more features (especially
+            because tahoe's spotlight looks actually good)
+        </li>
+    </ul>
+</div>
+</div>
+        <footer class="site-footer">
+            Ronak Jain 2025 &mdash; Built on
+            <a href="https://github.com/ironic1234/ronfire" target="_blank"
+                >ronfire</a
+            >
+            &mdash; Terminal with
+            <a href="https://xtermjs.org/">xterm.js</a> &mdash; Social Icons
+            from <a href="https://fontawesome.com">Font Awesome</a>
+        </footer>
+    </body>
+</html>
