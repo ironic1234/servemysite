@@ -178,8 +178,4 @@ a:hover {
         flex-wrap: wrap;
         justify-content: center;
     }
-
-    .desktop-only {
-        display: none;
-    }
 }
