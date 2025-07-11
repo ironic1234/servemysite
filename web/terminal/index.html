@@ -62,6 +62,7 @@
     rel="stylesheet"
     href="/static/styles/xterm.css"
 />
+Type help for help, Tab to complete, Ctrl + L to clear
 <div id="terminal-container"></div>
 <script src="/static/js/xterm.js"></script>
 <script>
@@ -83,7 +84,6 @@
     const now = new Date();
     const timeString = now.toString().split(" ").slice(0, 5).join(" ");
     term.writeln("Last login: " + timeString + " on ttys001");
-    term.writeln("\nType help for help\n");
 
     let input = "";
     let cwd = "~";
@@ -201,7 +201,7 @@
                                 "\x1b[38;2;137;180;250m " + name + "/\x1b[0m"
                             );
                         } else {
-                            // File: light gray
+                            // File: yellow
                             return (
                                 "\x1b[38;2;217;197;154m " + name + "\x1b[0m"
                             );
@@ -215,8 +215,12 @@
                 }
             } else if (cmd === "cd") {
                 if (!arg) {
+                    cwd = "~";
+                } else if (typeof dir[arg] === "string") {
                     term.writeln(
-                        "\x1b[38;2;255;121;198mUsage: cd <directory>\x1b[0m",
+                        "\x1b[38;2;255;121;198m" +
+                            arg +
+                            " is a file, not a directory\x1b[0m",
                     );
                 } else if (arg === "..") {
                     const parts = cwd.split("/").filter((p) => p);
@@ -293,13 +297,34 @@
                 );
             } else {
                 term.writeln(
-                    "\x1b[38;2;255;121;198mCommand not found:" +
+                    "\x1b[38;2;255;121;198mCommand not found: " +
                         input +
                         "\x1b[0m",
                 );
             }
             term.write(getPrompt());
             input = "";
+        } else if (data === "\t") {
+            const dir = getCurrentDir();
+            const dirEntries = Object.keys(dir);
+            // Find the last token the user is typing
+            const tokens = input.trim().split(" ");
+            const last = tokens[tokens.length - 1] || "";
+            // All matches that begin with the partial
+            const matches = dirEntries.filter((name) => name.startsWith(last));
+
+            if (matches.length === 1) {
+                // Single match — complete it
+                const rest = matches[0].slice(last.length);
+                input += rest;
+                term.write(rest);
+            } else if (matches.length > 1) {
+                // Multiple matches — list them
+                term.write("\r\n");
+                term.writeln(matches.join("  "));
+                // Re-print prompt and buffer
+                term.write(getPrompt() + input);
+            }
         } else if (data === "\x7f") {
             // Handle backspace
             if (input.length > 0) {
