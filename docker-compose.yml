@@ -1,11 +1,10 @@
-version: '3.8'
-
 services:
   ronfire:
     build: .
     container_name: ronfire
     volumes:
       - socket_data:/app/socket
+      - ./app.log:/app/app.log
     networks:
       - webnet
 
@@ -14,6 +13,7 @@ services:
     container_name: caddy
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - socket_data:/app/socket
