@@ -1,3 +1,3 @@
-:80 {
+ronakpjain.com, www.ronakpjain.com {
     reverse_proxy unix//app/socket/website.sock
 }
